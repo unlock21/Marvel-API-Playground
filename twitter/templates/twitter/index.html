@@ -10,7 +10,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
         <style>
             #tweets-container {
-                width: 25rem;
+                max-width: 25rem;
                 height: 100%;
                 overflow: hidden;
             }
@@ -21,22 +21,23 @@
                 justify-content: center;
                 border: 1px black solid;
                 overflow: auto;
+                margin-top: 2rem;
             }
 
             #search-container {
-                width: 25rem;
+                max-width: 25rem;
                 height: 100%;
             }
         </style>
     </head>
     <body>
-        <div class="container-fluid">
+        <div class="container-fluid px-5">
           <div class="row">
 
-            <div class="col">
+            <div class="col-lg col-md-4">
                 {% comment %} ALL TWEETS {% endcomment %}
                 <div id="tweets-container">
-                    <h1>All Tweets:</h1>
+                    <h3>All Tweets:</h3>
                     {% if tweets %}
                     <div class="tweets">
                     {% for tweet in tweets %}
@@ -54,11 +55,10 @@
                 </div>
             </div>
 
-            <div class="col">
+            <div class="col-lg col-md-4">
                 {% comment %} JQUERY SEARCH {% endcomment %}
                 <div id="search-container">
-                    <h1>Search:</h1>
-                    <h5>Jquery Loader</h5>
+                    <h3>Search (Jquery):</h3>
                     <div class="input-group">
                         <input class="form-control" id="jquerySearchInput">
                         <div class="input-group-append">
@@ -70,27 +70,28 @@
                 </div>
             </div>
 
-            {% comment %} DJANGO SEARCH {% endcomment %}
-            <div id="search-container">
-                <h1>Search:</h1>
-                <h5>Django Loader</h5>
-                <form action="" method="GET">
-                    <div class="input-group">
-                        <input class="form-control" name="q" id="djangoSearchInput">
-                        <div class="input-group-append">
-                            <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
+            <div class="col-lg col-md-4">
+                {% comment %} DJANGO SEARCH {% endcomment %}
+                <div id="search-container">
+                    <h3>Search (Django - GET):</h3>
+                    <form action="" method="GET">
+                        <div class="input-group">
+                            <input class="form-control" name="q" id="djangoSearchInput">
+                            <div class="input-group-append">
+                                <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
+                            </div>
                         </div>
-                    </div>
-                </form>
-                <div class="tweets" id="djangoResults">
-                    {% for tweet in searchTweets %}
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">@{{ tweet.user }}</h5>
-                            <p class="card-text pl-3">{{ tweet.body}}</p>
+                    </form>
+                    <div class="tweets" id="djangoResults">
+                        {% for tweet in searchTweets %}
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">@{{ tweet.user }}</h5>
+                                <p class="card-text pl-3">{{ tweet.body}}</p>
+                            </div>
                         </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
             </div>
 
