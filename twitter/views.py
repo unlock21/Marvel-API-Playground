@@ -5,7 +5,7 @@ from .models import tweet
 
 def index(request):
     # TODO: SIMPLIFY FORM
-    query = request.POST.get('q', '')
+    query = request.GET.get('q', '')
     searchTweets = tweet.objects.filter(body__contains=query)
     tweets = tweet.objects.all()
     template = loader.get_template('twitter/index.html')
