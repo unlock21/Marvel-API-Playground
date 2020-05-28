@@ -5,8 +5,11 @@ from .models import tweet
 
 def index(request):
     # TODO: SIMPLIFY FORM
-    query = request.GET.get('q', '')
-    searchTweets = tweet.objects.filter(body__contains=query)
+    query = request.GET.get('q', 'NOT_PROVIDED')
+    if query != 'NOT_PROVIDED':
+        searchTweets = tweet.objects.filter(body__contains=query)
+    else:
+        searchTweets = []
     tweets = tweet.objects.all()
     template = loader.get_template('twitter/index.html')
     context = {
