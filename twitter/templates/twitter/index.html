@@ -3,19 +3,12 @@
     <head>
         <meta charset="utf-8">
         <title>My test page</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
         <style>
-            #container {
-                display: flex;
-                flex-direction: row;
-                width: 100vw;
-                height: 100vh;
-                overflow: hidden;
-            }
-
             #tweets-container {
                 width: 25rem;
                 height: 100%;
@@ -34,41 +27,46 @@
                 width: 25rem;
                 height: 100%;
             }
-
-            .card {
-                width: 20rem;
-            }
         </style>
     </head>
     <body>
-        <div id="container">
+        <div class="container-fluid">
+          <div class="row">
 
-            {% comment %} ALL TWEETS {% endcomment %}
-            <div id="tweets-container">
-                <h1>All Tweets:</h1>
-                {% if tweets %}
-                <div class="tweets">
-                {% for tweet in tweets %}
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">@{{ tweet.user }}</h5>
-                            <p class="card-body">{{ tweet.body}}</p>
+            <div class="col">
+                {% comment %} ALL TWEETS {% endcomment %}
+                <div id="tweets-container">
+                    <h1>All Tweets:</h1>
+                    {% if tweets %}
+                    <div class="tweets">
+                    {% for tweet in tweets %}
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">@{{ tweet.user }}</h5>
+                                <p class="card-text pl-3">{{ tweet.body}}</p>
+                            </div>
                         </div>
+                    {% endfor %}
                     </div>
-                {% endfor %}
+                    {% else %}
+                    <p>No tweets are available.</p>
+                    {% endif %}
                 </div>
-                {% else %}
-                <p>No tweets are available.</p>
-                {% endif %}
             </div>
 
-            {% comment %} JQUERY SEARCH {% endcomment %}
-            <div id="search-container">
-                <h1>Search:</h1>
-                <h5>Jquery Loader</h5>
-                <input class="input" id="jquerySearchInput">
-                <button class="button" id="jquerySearchButton">Search</button>
-                <div class="tweets" id="jqueryResults">
+            <div class="col">
+                {% comment %} JQUERY SEARCH {% endcomment %}
+                <div id="search-container">
+                    <h1>Search:</h1>
+                    <h5>Jquery Loader</h5>
+                    <div class="input-group">
+                        <input class="form-control" id="jquerySearchInput">
+                        <div class="input-group-append">
+                            <button class="btn btn-light" id="jquerySearchButton"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    <div class="tweets" id="jqueryResults">
+                    </div>
                 </div>
             </div>
 
@@ -77,15 +75,19 @@
                 <h1>Search:</h1>
                 <h5>Django Loader</h5>
                 <form action="" method="GET">
-                    <input class="input" name="q" id="djangoSearchInput">
-                    <input class="button" type="submit"></input>
+                    <div class="input-group">
+                        <input class="form-control" name="q" id="djangoSearchInput">
+                        <div class="input-group-append">
+                            <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
                 </form>
                 <div class="tweets" id="djangoResults">
                     {% for tweet in searchTweets %}
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">@{{ tweet.user }}</h5>
-                            <p class="card-body">{{ tweet.body}}</p>
+                            <p class="card-text pl-3">{{ tweet.body}}</p>
                         </div>
                     </div>
                     {% endfor %}
@@ -126,7 +128,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">@${tweet.user}</h5>
-                            <p class="card-body">${tweet.body}</p>
+                            <p class="card-text pl-3">${tweet.body}</p>
                         </div>
                     </div>
                 `
