@@ -112,7 +112,7 @@
                 return // TODO: DO SOME OTHER ACTION LIKE CLEAR OR SOMETHING
             }
             $.ajax({
-                url: '../search?q=' + searchTerm,
+                url: '{% url 'twitter:search' %}?q=' + searchTerm,
                 success: function (response) {
                     displayResults(response)
                 }
