@@ -4,5 +4,5 @@ from . import views
 app_name = 'twitter'
 urlpatterns = [
     path('', views.index, name='index'),
-    path('search/', views.search, name='search'),
+    path('api/twitter/search/', views.search, name='search'),
 ]
