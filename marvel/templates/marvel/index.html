@@ -42,22 +42,21 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ character.name }}</h5>
                                 <ul class="list-group list-group-flush">
-                                  {% if character.comic_set.count > 0 %}
-                                    <li class="list-group-item"><h5>Comic appearances:</h5></li>
-                                    {% for comic in character.comic_set.all %}
-                                      <li class="list-group-item">{{ comic.name }}</li>
-                                    {% endfor %}
-                                  {% else %}
-                                    <li class="list-group-item"><p>No comic appearances.</p></li>
-                                    {% comment %} <h5></h5> {% endcomment %}
-                                  {% endif %}
+                                    {% if character.comic_set.count > 0 %}
+                                        <li class="list-group-item"><h5>Comic appearances:</h5></li>
+                                        {% for comic in character.comic_set.all %}
+                                            <li class="list-group-item">{{ comic.name }}</li>
+                                        {% endfor %}
+                                    {% else %}
+                                        <li class="list-group-item"><p>No comic appearances.</p></li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>
                     {% endfor %}
-                    </div>
+                        </div>
                     {% else %}
-                    <p>No characters are available.</p>
+                        <p>No characters are available.</p>
                     {% endif %}
                 </div>
             </div>
@@ -67,36 +66,36 @@
                 <div id="characters-container">
                     <h3>Search Character's Name:</h3>
                     <form action="" method="GET">
-                      <div class="input-group">
-                          <input class="form-control" name="q">
-                          <div class="input-group-append">
-                              <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                          </div>
-                      </div>
-                    </form>
-                    {% if searchCharacters %}
-                    <div class="characters">
-                    {% for character in searchCharacters %}
-                        <div class="card mb-5">
-                            <img class="card-img-top" src="{{ character.thumbnail }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ character.name }}</h5>
-                                <ul class="list-group list-group-flush">
-                                  {% if character.comic_set.count > 0 %}
-                                    <li class="list-group-item"><h5>Comic appearances:</h5></li>
-                                    {% for comic in character.comic_set.all %}
-                                      <li class="list-group-item">{{ comic.name }}</li>
-                                    {% endfor %}
-                                  {% else %}
-                                    <li class="list-group-item"><p>No comic appearances.</p></li>
-                                  {% endif %}
-                                </ul>
+                        <div class="input-group">
+                            <input class="form-control" name="q">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
-                    {% endfor %}
-                    </div>
+                    </form>
+                    {% if searchCharacters %}
+                        <div class="characters">
+                        {% for character in searchCharacters %}
+                            <div class="card mb-5">
+                                <img class="card-img-top" src="{{ character.thumbnail }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ character.name }}</h5>
+                                    <ul class="list-group list-group-flush">
+                                        {% if character.comic_set.count > 0 %}
+                                            <li class="list-group-item"><h5>Comic appearances:</h5></li>
+                                            {% for comic in character.comic_set.all %}
+                                                <li class="list-group-item">{{ comic.name }}</li>
+                                            {% endfor %}
+                                        {% else %}
+                                            <li class="list-group-item"><p>No comic appearances.</p></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
                     {% else %}
-                    <p>No characters where found.</p>
+                        <p>No characters where found.</p>
                     {% endif %}
                 </div>
             </div>
