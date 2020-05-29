@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'twitter.apps.TwitterConfig',
     'marvel.apps.MarvelConfig',
     'django.contrib.admin',
     'django.contrib.auth',
