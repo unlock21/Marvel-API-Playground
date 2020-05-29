@@ -1,8 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 
-from marvel_api import api
-
 from marvel.models import Character, Comic
 
 app_name = 'marvel'

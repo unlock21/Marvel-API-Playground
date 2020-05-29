@@ -32,3 +32,6 @@ def saveCharacters(responseJson):
     for comic in character['comics']['items']:
       comicModel = Comic(name=comic['name'], character=characterModel)
       comicModel.save()
+
+if __name__ == '__main__':
+    getCharacters()
