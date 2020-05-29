@@ -1,23 +1,22 @@
 from django.http import JsonResponse, HttpResponse
 from django.template import loader
 
-from .models import tweet
+from .api.search import bodyContains
+from .api.get import getAll
 
 def index(request):
     query = request.GET.get('q', 'NOT_PROVIDED')
     if query != 'NOT_PROVIDED':
-        searchTweets = tweet.objects.filter(body__contains=query)
+        searchTweets = bodyContains(query)
     else:
         searchTweets = []
-    allTweets = tweet.objects.all()
     template = loader.get_template('twitter/index.html')
     context = {
-        'allTweets': allTweets,
+        'allTweets': getAll(),
         'searchTweets': searchTweets,
     }
     return HttpResponse(template.render(context, request))
 
 def search(request):
     query = request.GET.get('q', '')
-    searchTweets = tweet.objects.filter(body__contains=query)
-    return JsonResponse(list(searchTweets.values()), safe=False)
+    return JsonResponse(list(bodyContains(query).values()), safe=False)
