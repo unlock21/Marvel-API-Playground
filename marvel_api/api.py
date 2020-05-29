@@ -35,5 +35,5 @@ def saveCharacters(responseJson):
     characterModel = Character(id=character["id"], name=character["name"], thumbnail=(character["thumbnail"]["path"] + '.' + character["thumbnail"]["extension"]))
     characterModel.save()
     for comic in character["comics"]["items"]:
-      comicModel = Comic(name=comic["name"], character_id=characterModel)
+      comicModel = Comic(name=comic["name"], character=characterModel)
       comicModel.save()
