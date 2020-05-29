@@ -19,7 +19,7 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                border: 1px black solid;
+                {% comment %} border: 1px black solid; {% endcomment %}
                 overflow: auto;
                 margin-top: 2rem;
             }
@@ -62,7 +62,7 @@
                     <div class="input-group">
                         <input class="form-control" id="jquerySearchInput">
                         <div class="input-group-append">
-                            <button class="btn btn-light" id="jquerySearchButton"><i class="fas fa-search"></i></button>
+                            <button class="btn btn-primary" id="jquerySearchButton"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
                     <div class="tweets" id="jqueryResults">
@@ -78,7 +78,7 @@
                         <div class="input-group">
                             <input class="form-control" name="q" id="djangoSearchInput">
                             <div class="input-group-append">
-                                <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
+                                <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
                     </form>
