@@ -4,21 +4,20 @@ from django.template import loader
 from .models import tweet
 
 def index(request):
-    # TODO: SIMPLIFY FORM
     query = request.GET.get('q', 'NOT_PROVIDED')
     if query != 'NOT_PROVIDED':
         searchTweets = tweet.objects.filter(body__contains=query)
     else:
         searchTweets = []
-    tweets = tweet.objects.all()
+    allTweets = tweet.objects.all()
     template = loader.get_template('twitter/index.html')
     context = {
-        'tweets': tweets,
+        'allTweets': allTweets,
         'searchTweets': searchTweets,
     }
     return HttpResponse(template.render(context, request))
 
 def search(request):
     query = request.GET.get('q', '')
-    tweets = tweet.objects.filter(body__contains=query)
-    return JsonResponse(list(tweets.values()), safe=False)
+    searchTweets = tweet.objects.filter(body__contains=query)
+    return JsonResponse(list(searchTweets.values()), safe=False)

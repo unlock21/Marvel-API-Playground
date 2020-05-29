@@ -31,16 +31,16 @@
         </style>
     </head>
     <body>
-        <div class="container-fluid px-5">
+        <div class="container-fluid px-5 pt-5">
           <div class="row">
 
             <div class="col-lg col-md-4">
                 {% comment %} ALL TWEETS {% endcomment %}
                 <div id="tweets-container">
                     <h3>All Tweets:</h3>
-                    {% if tweets %}
+                    {% if allTweets %}
                     <div class="tweets">
-                    {% for tweet in tweets %}
+                    {% for tweet in allTweets %}
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">@{{ tweet.user }}</h5>
