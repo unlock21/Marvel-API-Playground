@@ -9,6 +9,9 @@ class Character(models.Model):
 
 class Comic(models.Model):
     name = models.CharField(max_length=500)
-    character_id = models.ForeignKey(Character, on_delete=models.CASCADE)
+    character = models.ForeignKey(
+        Character,
+        on_delete=models.CASCADE
+    )
     def __str__(self):
         return self.name
