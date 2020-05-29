@@ -124,16 +124,20 @@
 
         const displayResults = function (results) {
             var html = ''
-            results.forEach(function (tweet) {
-                html += `
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">@${tweet.user}</h5>
-                            <p class="card-text pl-3">${tweet.body}</p>
+            if (results.length > 0) {
+                results.forEach(function (tweet) {
+                    html += `
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">@${tweet.user}</h5>
+                                <p class="card-text pl-3">${tweet.body}</p>
+                            </div>
                         </div>
-                    </div>
-                `
-            })
+                    `
+                })
+            } else {
+                html = '<p>No tweets are available.</p>'
+            }
             $('#jqueryResults').html(html)
         }
     </script>
