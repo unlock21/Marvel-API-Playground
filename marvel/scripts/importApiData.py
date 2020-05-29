@@ -1,4 +1,4 @@
 from marvel_api import api
 
 def run():
-  api.getCharacters()
+    api.getCharacters()
