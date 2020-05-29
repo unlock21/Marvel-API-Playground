@@ -2,13 +2,12 @@ from hashlib import md5
 from os import environ
 import requests
 import time
-import json
 
 from marvel.models import Character, Comic
 
 apiPublicKey = environ.get('MARVEL_PUBLIC_KEY')
 apiPrivateKey = environ.get('MARVEL_PRIVATE_KEY')
-baseUrl = "http://gateway.marvel.com"
+baseUrl = 'http://gateway.marvel.com'
 
 def getCharacters():
   # Parts to construct call
@@ -18,22 +17,18 @@ def getCharacters():
   auth = md5((ts+apiPrivateKey+apiPublicKey).encode()).hexdigest()
 
   # Fully constructed URL
-  apiUrl = f"{baseUrl}/v1/public/characters?ts={ts}&apikey={apiPublicKey}&hash={auth}"
-
-  response = requests.get(apiUrl)
-
-  if not response.ok:
-    print("Marvel API - CHARACTERS - NO GO")
-  else:
-    print("Marvel API - CHARACTERS - GO")
-
-  saveCharacters(response.json())
+  apiUrl = f'{baseUrl}/v1/public/characters?ts={ts}&apikey={apiPublicKey}&hash={auth}'
+  try:
+    response = requests.get(apiUrl)
+    if response.ok: saveCharacters(response.json())
+  except Exception as e:
+    print('Marvel API request failed!', e)
 
 def saveCharacters(responseJson):
-  characters = responseJson["data"]["results"]
+  characters = responseJson['data']['results']
   for character in characters:
-    characterModel = Character(id=character["id"], name=character["name"], thumbnail=(character["thumbnail"]["path"] + '.' + character["thumbnail"]["extension"]))
+    characterModel = Character(id=character['id'], name=character['name'], thumbnail=(character['thumbnail']['path'] + '.' + character['thumbnail']['extension']))
     characterModel.save()
-    for comic in character["comics"]["items"]:
-      comicModel = Comic(name=comic["name"], character=characterModel)
+    for comic in character['comics']['items']:
+      comicModel = Comic(name=comic['name'], character=characterModel)
       comicModel.save()
