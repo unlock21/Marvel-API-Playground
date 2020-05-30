@@ -12,18 +12,28 @@ baseUrl = 'http://gateway.marvel.com'
 def getCharacters():
     # string timestamp
     ts = str(time.time()).split('.')[0]
-
     # MD5 Hash ts, apiPublicKey and apiPrivateKey for API auth
     auth = md5((ts+apiPrivateKey+apiPublicKey).encode()).hexdigest()
+    # How many records to return per call
+    recordCountPerCall = 100
 
-    # Fully constructed URL
-    apiUrl = f'{baseUrl}/v1/public/characters?ts={ts}&apikey={apiPublicKey}&hash={auth}'
+    i = 0
+    while True:
+        # Fully constructed URL
+        apiUrl = f'{baseUrl}/v1/public/characters?ts={ts}&apikey={apiPublicKey}&hash={auth}&limit={recordCountPerCall}&offset={i * recordCountPerCall}'
 
-    try:
-        response = requests.get(apiUrl)
-        if response.ok: saveCharacters(response.json())
-    except Exception as e:
-        print('Marvel API request failed!', e)
+        try:
+            response = requests.get(apiUrl)
+        except Exception as e:
+            print('Marvel API request failed!', e)
+            break
+
+        print('Run: ' + str(i))
+        if response.ok:
+            saveCharacters(response.json())
+        if i * recordCountPerCall > response.json()['data']['total']:
+            break
+        i = i + 1
 
 def saveCharacters(responseJson):
     characters = responseJson['data']['results']
