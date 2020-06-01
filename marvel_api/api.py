@@ -10,28 +10,37 @@ apiPrivateKey = environ.get('MARVEL_PRIVATE_KEY')
 baseUrl = 'http://gateway.marvel.com'
 
 def getCharacters():
-  # Parts to construct call
-  ts = str(time.time()).split('.')[0]
+    # string timestamp
+    ts = str(time.time()).split('.')[0]
+    # MD5 Hash ts, apiPublicKey and apiPrivateKey for API auth
+    auth = md5((ts+apiPrivateKey+apiPublicKey).encode()).hexdigest()
+    # How many records to return per call
+    recordCountPerCall = 100
 
-  # MD5 Hash ts, apiPublicKey and apiPrivateKey for API auth
-  auth = md5((ts+apiPrivateKey+apiPublicKey).encode()).hexdigest()
+    i = 0
+    while True:
+        # Fully constructed URL
+        apiUrl = f'{baseUrl}/v1/public/characters?ts={ts}&apikey={apiPublicKey}&hash={auth}&limit={recordCountPerCall}&offset={i * recordCountPerCall}'
 
-  # Fully constructed URL
-  apiUrl = f'{baseUrl}/v1/public/characters?ts={ts}&apikey={apiPublicKey}&hash={auth}'
-  try:
-    response = requests.get(apiUrl)
-    if response.ok: saveCharacters(response.json())
-  except Exception as e:
-    print('Marvel API request failed!', e)
+        try:
+            response = requests.get(apiUrl)
+        except Exception as e:
+            print('Marvel API request failed!', e)
+            break
+
+        print('Run: ' + str(i))
+        if response.ok:
+            saveCharacters(response.json())
+        # Check if there are more API calls required
+        if i * recordCountPerCall > response.json()['data']['total']:
+            break
+        i = i + 1
 
 def saveCharacters(responseJson):
-  characters = responseJson['data']['results']
-  for character in characters:
-    characterModel = Character(id=character['id'], name=character['name'], thumbnail=(character['thumbnail']['path'] + '.' + character['thumbnail']['extension']))
-    characterModel.save()
-    for comic in character['comics']['items']:
-      comicModel = Comic(name=comic['name'], character=characterModel)
-      comicModel.save()
-
-if __name__ == '__main__':
-    getCharacters()
+    characters = responseJson['data']['results']
+    for character in characters:
+        characterModel = Character(id=character['id'], name=character['name'], thumbnail=(character['thumbnail']['path'] + '.' + character['thumbnail']['extension']))
+        characterModel.save()
+        for comic in character['comics']['items']:
+            comicModel = Comic(name=comic['name'], character=characterModel)
+            comicModel.save()

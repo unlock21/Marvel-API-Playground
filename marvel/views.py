@@ -21,22 +21,27 @@ def index(request):
 def characters(request):
     return JsonResponse(list(Character.objects.values()), safe=False)
 
-# def characterSearch(request):
-#     query = request.GET.get('q', '')
-#     if (query == ''): return JsonResponse([])
-#     characters = Character.objects.filter(name__contains=query)
-#     result = []
-#     for character in characters:
-#         result.append(Comic.objects.filter(character=character).values())
-#     return JsonResponse(list(result), safe=False)
+def characterSearch(request):
+    query = request.GET.get('q', '')
+    if (query == ''): return JsonResponse([])
+    result = []
+    characters = Character.objects.filter(name__contains=query)
+    for character in characters:
+        characterJson = character.json()
+        characterJson['comics'] = list(Comic.objects.filter(character=character).values())
+        result.append(characterJson)
+    return JsonResponse(result, safe=False)
 
 def comics(request):
     return JsonResponse(list(Comic.objects.values()), safe=False)
 
-# def comicsSearch(request):
-#     query = request.GET.get('q', '')
-#     if (query == ''): return JsonResponse([])
-#     comics = Comic.objects.filter(name__contains=query).select_related()
-#     # characters = comics.character_set.all()
-#     print(characters)
-#     return JsonResponse(list(comics.values()), safe=False)
+def comicsSearch(request):
+    query = request.GET.get('q', '')
+    if (query == ''): return JsonResponse([])
+    result = []
+    comics = Comic.objects.filter(name__contains=query)
+    for comic in comics:
+        comicJson = comic.json()
+        comicJson['character'] = comicJson['character'].json()
+        result.append(comicJson)
+    return JsonResponse(result, safe=False)

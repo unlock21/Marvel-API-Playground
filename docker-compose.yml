@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  django:
+    image: 14ecassidy/ues_demo:latest
+    build: .
+    environment:
+      - DJANGO_PRIVATE_KEY
+      - MARVEL_PUBLIC_KEY
+      - MARVEL_PRIVATE_KEY
+    ports:
+      - 80:80
