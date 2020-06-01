@@ -31,6 +31,7 @@ def getCharacters():
         print('Run: ' + str(i))
         if response.ok:
             saveCharacters(response.json())
+        # Check if there are more API calls required
         if i * recordCountPerCall > response.json()['data']['total']:
             break
         i = i + 1
