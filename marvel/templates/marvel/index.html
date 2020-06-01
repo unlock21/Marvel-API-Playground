@@ -31,37 +31,6 @@
           <div class="row">
 
             <div class="col-lg col-md-6">
-                {% comment %} ALL Characters {% endcomment %}
-                <div id="characters-container">
-                    <h3>All Characters:</h3>
-                    {% if allCharacters %}
-                    <div class="characters">
-                    {% for character in allCharacters %}
-                        <div class="card mb-5">
-                            <img class="card-img-top" src="{{ character.thumbnail }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ character.name }}</h5>
-                                <ul class="list-group list-group-flush">
-                                    {% if character.comic_set.count > 0 %}
-                                        <li class="list-group-item"><h5>Comic appearances:</h5></li>
-                                        {% for comic in character.comic_set.all %}
-                                            <li class="list-group-item">{{ comic.name }}</li>
-                                        {% endfor %}
-                                    {% else %}
-                                        <li class="list-group-item"><p>No comic appearances.</p></li>
-                                    {% endif %}
-                                </ul>
-                            </div>
-                        </div>
-                    {% endfor %}
-                        </div>
-                    {% else %}
-                        <p>No characters are available.</p>
-                    {% endif %}
-                </div>
-            </div>
-
-            <div class="col-lg col-md-6">
                 {% comment %} Search Characters {% endcomment %}
                 <div id="characters-container">
                     <h3>Search Character's Name:</h3>
@@ -101,5 +70,6 @@
             </div>
 
         </div>
+        <footer><a href=\"http://marvel.com\">Data provided by Marvel. © 2020 MARVEL</a></footer>
     </body>
 </html>
