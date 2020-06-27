@@ -14,11 +14,11 @@
 
     docker run -d -e DJANGO_PRIVATE_KEY=<LONG STRING> -e MARVEL_PUBLIC_KEY=<MARVEL PUBLIC KEY> -e MARVEL_PRIVATE_KEY=<MARVEL PRIVATE KEY> -p 80:80 14ecassidy/ues_demo:latest
 
-~~### Using Deployed Version
+~~### Using Deployed Version~~
 
-~~*Container in Azure*
+~~*Container in Azure*~~
 
-~~Navigate to [http://ues-demo-django.eastus.azurecontainer.io/](http://ues-demo-django.eastus.azurecontainer.io/)
+~~Navigate to [http://ues-demo-django.eastus.azurecontainer.io/]~~(http://ues-demo-django.eastus.azurecontainer.io/)
 
 ## Project Layout
 
