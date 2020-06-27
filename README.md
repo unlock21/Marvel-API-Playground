@@ -2,7 +2,7 @@
 
 ### Local Run
 
-    git clone https://github.com/unlock21/UES_DEMO.git
+    git clone https://github.com/unlock21/Marvel-API-Playground.git
 
     export DJANGO_PRIVATE_KEY="<LONG STRING>"
     export MARVEL_PUBLIC_KEY="<MARVEL PUBLIC KEY>"
@@ -14,11 +14,11 @@
 
     docker run -d -e DJANGO_PRIVATE_KEY=<LONG STRING> -e MARVEL_PUBLIC_KEY=<MARVEL PUBLIC KEY> -e MARVEL_PRIVATE_KEY=<MARVEL PRIVATE KEY> -p 80:80 14ecassidy/ues_demo:latest
 
-### Using Deployed Version
+~~### Using Deployed Version
 
-*Container in Azure*
+~~*Container in Azure*
 
-Navigate to [http://ues-demo-django.eastus.azurecontainer.io/](http://ues-demo-django.eastus.azurecontainer.io/)
+~~Navigate to [http://ues-demo-django.eastus.azurecontainer.io/](http://ues-demo-django.eastus.azurecontainer.io/)
 
 ## Project Layout
 
